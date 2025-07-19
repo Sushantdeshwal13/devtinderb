@@ -19,6 +19,8 @@ profileRouter.get("/profile", userAuth, async(req, res)=>{
 
 profileRouter.patch("/profile/edit", userAuth, async(req, res)=>{
    try{
+      console.log("REQ BODY ===>", req.body); // 👈 check incoming data
+    console.log("REQ USER ===>", req.user);
      validateprofiledata(req);
      // req.user is set by the userAuth middleware
      // It contains the authenticated user's information

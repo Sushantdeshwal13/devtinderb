@@ -11,7 +11,7 @@ authRouter.post("/signup",async(req, res)=>{
    try{
      validatesingupdata(req); 
   
-     const {firstname, lastname, email, password} = req.body;
+     const {firstName, lastName, email, password} = req.body;
   
      //Encrypt the password
      const passwordHash = await bcrypt.hash(password, 10);
@@ -19,13 +19,16 @@ authRouter.post("/signup",async(req, res)=>{
     //Creating a new instance of the user model
   
        const user = new User({
-          firstname,
-          lastname,
+          firstName,
+          lastName,
           email,
           password: passwordHash,
        });
-       await user.save();
-       res.send("User added successfully");
+       const saveduser = await user.save();
+       const token = await saveduser.getJWT();
+         //add the token to cookie and send the response back to the user
+         res.cookie("token", token,);
+       res.json({ message: "User added successfully", user: saveduser });
       }
       catch(err){
        res.status(500).send("Error adding user: " + err.message);

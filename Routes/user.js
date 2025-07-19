@@ -15,7 +15,7 @@ userRouter.get("/user/requests/received", userAuth, async(req,res)=>{
           status: "interested",
        }).populate(
          "sender",
-         ["firstname", "lastname"]); 
+         ["firstName", "lastName", "photoUrl", "age", "gender", "about"]); 
 
        res.json({
         message: "Data fetched Successfully",
@@ -37,8 +37,9 @@ userRouter.get("/user/connections", userAuth, async(req,res)=>{
                 { receiver: loggedinuser._id, status: "accepted"},
                 { sender: loggedinuser._id, status: "accepted"},
              ]
-         }) .populate("sender", ["firstname","lastname"])
-            .populate("receiver", ["firstname","lastname"]);
+         }) .populate("sender", ["firstName", "lastName", "photoUrl", "age", "gender", "about"])
+            .populate("receiver", ["firstName", "lastName", "photoUrl", "age", "gender", "about"])
+
             
           const data = connectionRequests.map((row)=>{
             if(row.sender._id.toString() == loggedinuser._id.toString()){
@@ -89,7 +90,7 @@ userRouter.get("/feed", userAuth, async(req, res) =>{
                 {_id : { $nin: Array.from(hideuserfromfeed)}},
                 {_id : { $ne: loggedinuser._id }},
                 ]
-            }).select(["firstname", "lastname"]).skip(skip).limit(limit);
+            }).select(["firstName", "lastName", "photoUrl", "age", "gender", "about"]).skip(skip).limit(limit);
 
             res.send(users);
      }  catch(err){

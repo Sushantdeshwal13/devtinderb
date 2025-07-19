@@ -4,13 +4,13 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 
 const userSchema = new mongoose.Schema({
-    firstname:{
+    firstName:{
         type : String,
         required: true,
         minLength:3,
         maxLength: 20,
     },
-    lastname :{
+    lastName :{
         type: String,
     },
     email :{
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
             message: '{VALUE} is not a valid gender type',
         },
     },
-    photourl:{
+    photoUrl:{
         type:String,  
         default:"https://cdn-icons-png.flaticon.com/512/149/149071.png"
     },

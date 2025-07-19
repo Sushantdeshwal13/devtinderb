@@ -1,9 +1,9 @@
 const validator = require('validator');
 
 const validatesingupdata = (req) =>{
-    const {firstname, lastname, email, password} = req.body;
+    const {firstName, lastName, email, password} = req.body;
 
-    if(!firstname || !lastname){
+    if(!firstName || !lastName){
         throw new Error ("Name is not valid");
     }
     else if(!validator.isEmail(email)){
@@ -12,14 +12,15 @@ const validatesingupdata = (req) =>{
     else if(!validator.isStrongPassword(password)){
         throw new Error ("Enter a strong password")
     }
-};
+};  
 
 const validateprofiledata = (req) =>{
     const allowededitfields = [
-        'firstname',
-        'lastname',
+        'firstName',
+        'lastName',
         'email',
         'age',
+        'photoUrl',
         'gender',
         'about',
         'skills',
