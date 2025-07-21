@@ -3,6 +3,7 @@ const connectDB = require("./config/database.js");
 const app = express();
 const User = require("./models/user.js");
 const cookieParser = require("cookie-parser");
+require("dotenv").config(); 
 const cors = require("cors");
 
 app.use(cors({
@@ -43,7 +44,7 @@ connectDB()
 .then(()=>{
     console.log("MongoDB connected successfully");
 
-    app.listen(7777,()=>{
+    app.listen(process.env.PORT,()=>{
     console.log("Server is running on port 7777");
 });
 })
